@@ -1,0 +1,137 @@
+#+TITLE: My Tech Journal
+#+AUTHOR: Nick Weight
+
+* Emacs Doom : [[https://github.com/hlissner/doom-emacs/blob/develop/docs/index.org][Docs]]
+** [[https://www.youtube.com/user/ohzaiste][This]] is a good series of videos about using Doom mode
+** When you install new packages always run:
+#+BEGIN_SRC shell
+doom install
+#+END_SRC
+** When you update your configs in anyway always run:
+#+BEGIN_SRC shell
+doom refresh
+#+END_SRC
+** Upgrade doom configs:
+#+BEGIN_SRC shell
+doom upgrade
+#+END_SRC
+** Update all installed packages:
+#+BEGIN_SRC shell
+doom update
+#+END_SRC
+** Pressing =SPC= opens a pop up with possible keys.
+** Legend: kinda following the example [[http://www.angelwatt.com/coding/notes/vim-commands.html][here]]
+*** =<C-key>= Control plus key
+*** =<S-key>= Shift plus key
+*** =<M-key>= Meta (on mac this is option) plus key
+*** =<SPC key>= Space than key. Space is set to leader.
+** DONE Figure out how to turn on relative line numbers
+*** Set in config.org
+*** =<SPC t l>= toggles between line numbering types
+** TODO Figure out how to set relative as default option in editing windows
+** =<g s SPC= opens up easy-motion or avy. Type two letters and will jump to word if single occurance. Will give letter options for multiple occurances.
+*** Easy deletion of selections. Once given letter propmtings press =X= then the prompt to delete the selected word.
+*** Following from above. If you pre =i= and the prompt selection you get ispell spelling checker
+** evil-multiedit:
+*** =<M-(d/D)>= select words to multi-edit. =d= next and =D= for previous
+*** in visual mode =<M-R>= selects all occurances
+*** =<RET>= toggles selection of item under cursor
+*** Move between selections with =<C-n>= (next) and =<C-p>= (previous)
+** Word wrap: =<SPC t w>=
+** Rename file in emacs doom
+*** Open dir =<SPC o ->=
+*** Navigate to file in directory
+*** =R= to rename
+** Looked up:
+*** =<M-x command>= This allows you to promt the command pop-up and run commands
+*** =<SPC f .>= to find a file to opens
+* Doom org-mode : [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org][Docs]]
+** =<M-Ret>= adds a newline at the same level
+** =<M-(j/k/up-arrow/down-arrow)>= Moves the line up or down insides level
+** =<M-S-(j/k/up-arrow/down-arrow)>= Moves the line up or down
+** =<M-(h/l/left-arrow/right-arrow>= Promote or demote headlines
+** =<SPC m l l>= : Inserts a linke ( I think it stands for m: make, l: link, l:insert link )
+** =<S-(left-arrow/right-arrow)>= Toggles todo
+** =<] [>= Next h1
+** =<[ ]= Previous headline
+* Vim
+** [[http://www.angelwatt.com/coding/notes/vim-commands.html][Good Cheat sheet]]
+** =find= and =snipe= work the same in vim and emacs. They are improved in EMacs by doing multi-line.
+*** You can use =;= to go to the next instance and =,= to go to the previous
+** Frequently looked up:
+***
+* Python
+** Set pip requirements:
+#+BEGIN_SRC bash
+pip3 freeze > requirements.txt
+#+END_SRC
+** Import pip requirements:
+#+BEGIN_SRC shell
+pip3 install -r requirements.txt
+#+END_SRC
+** Add new kv pair to dict:
+#+BEGIN_SRC python
+wordFreqDic.update( {'before' : 23} )
+#+END_SRC
+** Editing files ([[https://realpython.com/read-write-files-python/][good guide]]):
+#+BEGIN_SRC python
+with open('dog_breeds.txt', 'r') as reader:
+    # Read and print the entire file line by line
+    for line in reader:
+        print(line, end='')
+#+END_SRC
+* GO
+* Gmail
+* Dotfiles
+* Jetbrains
+** IdeaVim
+*** Add the following lines to =~/..ideavimrc=
+** IntelliJ
+* Terraform
+** Create a new aws-module for =chg-terraform-infrastructure=
+*** Create a new directory in =~/repos/chg-terraform-infrastructure/modules= named =aws-<module>=
+*** Create a =main.tf=, =locals.tf=, =variables.tf=, =locals.tf=, and =version.tf=
+**** TODO make template versions of these files if possible
+**** =main.tf= will follow the steps for using the terraform aws module
+**** yada yada yada for the rest of the files
+*** Create a =aws-<module>.tf= file in the coresponding services directory (platform or core)
+**** This file should create the needed variables, locals and outputs for your tfvars file, and import your new module from =source = "../../modules/aws-<module>=
+** How to use my aws sandbox
+*** Go to the directory for the appropriate tf service (=~/repos/chg-terraform-infrastructure/services/platform= or =~/repos/chg-terraform-infrastructure/services/core=)
+*** Grab creds for sb-nweight (AWSAdministratorAccess) and paste in terminal. # Note: Hopefully awc-cli sso login works soon for terraform
+*** Change to sb-nweight workspace. =tfw select sb-nweight=
+*** Make sure you are in the sb-nweight workspace =tfw list=. sb-nweight should have an asterix next to it.
+*** Run a =terraform plan= using the platform-services.tfvars in the (=~/repos/chg-terraform-infrastructure/workspaces/sandboxs=) directory. =tfp -var-file=../../workspaces/sandboxs/platform-services.tfvars=
+*** If it all looks correct, run =terraform apply= using the same tfvars file. =tfa -var-file=../../workspaces/sandboxs/platform-services.tfvars=
+** commonly used (Maybe think of making alias or tools)
+*** =tfw list= to see all workspaces
+*** =tfw select <workspace>= selects the workspace
+** commonly looked up
+** TODO create tool to generate README.md in github markdown
+*** go
+*** if you run in the current directory it pulls stuff from your project
+*** prompt for info as its running similar to =readme-md-generator=
+* Jenkins
+* Kubernetes
+** Find what pods are on a =<node>=
+#+BEGIN_SRC shell
+kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=<node>
+#+END_SRC
+* Helm
+* AWS
+** Console
+** cli
+*** aliases :
+**** =aws.sso <profile>= : uses sso to log into a profile (note: this login method is not understood by Terraform yet)
+*
+* Github Markdown
+** You can get github user's avatar by adding a .png to the end of their homepage
+*** example: =https://github.com/nickw8= to =https://github.com/nickw8.png=
+*** This will take you to a page where you can do more things. =https://avatars3.githubusercontent.com/u/1335600?v=4=
+**** if you add a =&s=150= it will give you a version that is 150x150
+** A good article on README structure https://github.com/noffle/art-of-readme
+* Shell
+** symlinks:
+#+BEGIN_SRC shell
+ln -s file1 link1
+#+END_SRC
