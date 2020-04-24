@@ -14,4 +14,4 @@ ___
 * Add code examples and examples of the results if possible using code blocks, not images (thinks searchable)
 * Use **TODO** to mark items. Grep makes it easy to find. And if needed, you can use a git-hook to compile into a seperate file.
 * Don't hesitate to add stuff. Even if it seems stupid or easy for others. This is for you and to help make you better. 
-
+* Add links to the webpages that helped you. There might be more to read later after you assimilated the knowledge that led you there in the first place
