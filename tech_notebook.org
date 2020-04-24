@@ -45,6 +45,7 @@ doom update
 ** Looked up:
 *** =<M-x command>= This allows you to promt the command pop-up and run commands
 *** =<SPC f .>= to find a file to opens
+*** =<SPC TAB .>= switch between workspaces
 * Doom org-mode : [[https://github.com/Somelauw/evil-org-mode/blob/master/doc/keythemes.org][Docs]]
 ** =<M-Ret>= adds a newline at the same level
 ** =<M-(j/k/up-arrow/down-arrow)>= Moves the line up or down insides level
@@ -58,6 +59,14 @@ doom update
 ** [[http://www.angelwatt.com/coding/notes/vim-commands.html][Good Cheat sheet]]
 ** =find= and =snipe= work the same in vim and emacs. They are improved in EMacs by doing multi-line.
 *** You can use =;= to go to the next instance and =,= to go to the previous
+** adjust block of text (manually add comments):
+1. select the first caracter of your block
+2. press =<C-v>= ( this is rectangular visual selection mode)
+3. type =j= for each line more you want to be commented
+4. type Shift-i (like I for "insert at start")
+5. type // (or # or " or ...)
+6. you will see the modification appearing only on the first line
+7. IMPORTANT LAST STEP: type Esc key, and there you see the added character appear on all lines
 ** Frequently looked up:
 ***
 * Python
@@ -83,55 +92,67 @@ with open('dog_breeds.txt', 'r') as reader:
 * GO
 * Gmail
 * Dotfiles
-* Jetbrains
-** IdeaVim
-*** Add the following lines to =~/..ideavimrc=
-** IntelliJ
-* Terraform
-** Create a new aws-module for =chg-terraform-infrastructure=
-*** Create a new directory in =~/repos/chg-terraform-infrastructure/modules= named =aws-<module>=
-*** Create a =main.tf=, =locals.tf=, =variables.tf=, =locals.tf=, and =version.tf=
-**** TODO make template versions of these files if possible
+* Git
+** If your branch is behind master and the changes dont impact your branch, rebase!
+#+BEGIN_SRC shell
+git fetch
+git rebase origin/master
+git pull
+git push
+#+END_SRC
+** great article about understanding git is [[https://missing.csail.mit.edu/2020/version-control/][Version Control (Git) · the missing semester of your cs education]].
+* jetbrains
+** ideavim
+*** add the following lines to =~/..ideavimrc=
+** intellij
+* terraform
+** create a new aws-module for =chg-terraform-infrastructure=
+*** create a new directory in =~/repos/chg-terraform-infrastructure/modules= named =aws-<module>=
+*** create a =main.tf=, =locals.tf=, =variables.tf=, =locals.tf=, and =version.tf=
+**** todo make template versions of these files if possible
 **** =main.tf= will follow the steps for using the terraform aws module
 **** yada yada yada for the rest of the files
-*** Create a =aws-<module>.tf= file in the coresponding services directory (platform or core)
-**** This file should create the needed variables, locals and outputs for your tfvars file, and import your new module from =source = "../../modules/aws-<module>=
-** How to use my aws sandbox
-*** Go to the directory for the appropriate tf service (=~/repos/chg-terraform-infrastructure/services/platform= or =~/repos/chg-terraform-infrastructure/services/core=)
-*** Grab creds for sb-nweight (AWSAdministratorAccess) and paste in terminal. # Note: Hopefully awc-cli sso login works soon for terraform
-*** Change to sb-nweight workspace. =tfw select sb-nweight=
-*** Make sure you are in the sb-nweight workspace =tfw list=. sb-nweight should have an asterix next to it.
-*** Run a =terraform plan= using the platform-services.tfvars in the (=~/repos/chg-terraform-infrastructure/workspaces/sandboxs=) directory. =tfp -var-file=../../workspaces/sandboxs/platform-services.tfvars=
-*** If it all looks correct, run =terraform apply= using the same tfvars file. =tfa -var-file=../../workspaces/sandboxs/platform-services.tfvars=
-** commonly used (Maybe think of making alias or tools)
+*** create a =aws-<module>.tf= file in the coresponding services directory (platform or core)
+**** this file should create the needed variables, locals and outputs for your tfvars file, and import your new module from =source = "../../modules/aws-<module>=
+** how to use my aws sandbox
+*** go to the directory for the appropriate tf service (=~/repos/chg-terraform-infrastructure/services/platform= or =~/repos/chg-terraform-infrastructure/services/core=)
+*** grab creds for sb-nweight (awsadministratoraccess) and paste in terminal. # note: hopefully awc-cli sso login works soon for terraform
+*** change to sb-nweight workspace. =tfw select sb-nweight=
+*** make sure you are in the sb-nweight workspace =tfw list=. sb-nweight should have an asterix next to it.
+*** run a =terraform plan= using the platform-services.tfvars in the (=~/repos/chg-terraform-infrastructure/workspaces/sandboxs=) directory. =tfp -var-file=../../workspaces/sandboxs/platform-services.tfvars=
+*** if it all looks correct, run =terraform apply= using the same tfvars file. =tfa -var-file=../../workspaces/sandboxs/platform-services.tfvars=
+** commonly used (maybe think of making alias or tools)
 *** =tfw list= to see all workspaces
 *** =tfw select <workspace>= selects the workspace
 ** commonly looked up
-** TODO create tool to generate README.md in github markdown
+** todo create tool to generate readme.md in github markdown
 *** go
 *** if you run in the current directory it pulls stuff from your project
 *** prompt for info as its running similar to =readme-md-generator=
-* Jenkins
-* Kubernetes
-** Find what pods are on a =<node>=
-#+BEGIN_SRC shell
-kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName=<node>
-#+END_SRC
-* Helm
-* AWS
-** Console
+* jenkins
+* kubernetes
+** find what pods are on a =<node>=
+#+begin_src shell
+kubectl get pods --all-namespaces -o wide --field-selector spec.nodename=<node>
+#+end_src
+* helm
+* aws
+** console
 ** cli
 *** aliases :
-**** =aws.sso <profile>= : uses sso to log into a profile (note: this login method is not understood by Terraform yet)
+**** =aws.sso <profile>= : uses sso to log into a profile (note: this login method is not understood by terraform yet)
 *
-* Github Markdown
-** You can get github user's avatar by adding a .png to the end of their homepage
+* github markdown
+** you can get github user's avatar by adding a .png to the end of their homepage
 *** example: =https://github.com/nickw8= to =https://github.com/nickw8.png=
-*** This will take you to a page where you can do more things. =https://avatars3.githubusercontent.com/u/1335600?v=4=
+*** this will take you to a page where you can do more things. =https://avatars3.githubusercontent.com/u/1335600?v=4=
 **** if you add a =&s=150= it will give you a version that is 150x150
-** A good article on README structure https://github.com/noffle/art-of-readme
-* Shell
+** a good article on readme structure https://github.com/noffle/art-of-readme
+* shell
 ** symlinks:
-#+BEGIN_SRC shell
+#+begin_src shell
 ln -s file1 link1
-#+END_SRC
+#+end_src
+** Readline: The command line editor
+*** TODO Decide if I want to learn Readline or stick with vim mode.
+*** Good youtube video about [[https://www.youtube.com/watch?v=MxRTh8wlmJk&t=754s][ReadLine]]
